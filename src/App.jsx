@@ -9,19 +9,23 @@ import Invoice from "./page/Invoice";
 import Abc from "./page/Abc";
 import { Helmet } from "react-helmet";
 import Home from "./page/Home";
-import Purchase from "./page/Purchase";
+// import Purchase from "./page/Purchase";
 import Product from "./page/Product";
 import Category from "./page/Category";
 import Uom from "./page/Uom";
-import Order from "./page/Order";
+// import Order from "./page/Order";
 import ManageCus from "./customer/ManageCus";
 import CreateCus from "./customer/CreateCus";
-import ManageOrder from "./customer/CreateCus";
+
 
 import Order_details from "./page/Order_details";
 import Status from "./page/Status";
 import Stock from "./page/Stock";
 import Stock_report from "./page/Stock_report";
+import ManageOrder from "./sales/ManageOrder";
+import CreateOrder from "./sales/CreateOrder";
+import CreatePurchase from "./purchase/CreatePurchase";
+import ManagePurchase from "./purchase/ManagePurchase";
 
 
 
@@ -41,11 +45,14 @@ const App = () => {
           <Route path="/" element={<PageContent />}>
             <Route path="/" element={<Home />} />
             <Route path="/invoice" element={<Invoice />} />
-            <Route path="/purchase" element={<Purchase />} />
+            <Route path="/purchase" element={<CreatePurchase />} />
+            <Route path="/purchase_detail" element={<ManagePurchase />} />
+
             <Route path="/product" element={<Product />} />
             <Route path="/category" element={<Category />} />
             <Route path="/uom" element={<Uom />} />
-            <Route path="/order" element={<Order />} />
+            <Route path="/order" element={<CreateOrder/>} />
+            <Route path="/order_detail" element={<ManageOrder/>}/>
            <Route path="/customercreate" element={<CreateCus/>} />
             <Route path="/order_details" element={<Order_details />} />
             <Route path="/status" element={<Status />} />

@@ -5,16 +5,16 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 
 
-const ManageOrder = () => {
+const ManagePurchase = () => {
 
-const [orders,setOrder]=useState([]);
+const [purchases,setPurchase]=useState([]);
 
-const FetchOrder=()=>{
-  axios.get("http://localhost/laraval/laravel_project/public/api/order")
+const FetchPurchase=()=>{
+  axios.get("http://localhost/laraval/laravel_project/public/api/purchase")
 
    .then((res)=>{
   console.log(res.data);
-  setOrder(res.data.orders);
+  setPurchase(res.data.purchase);
   })
    .catch((error)=>{
   console.log(error);
@@ -23,8 +23,8 @@ const FetchOrder=()=>{
   }
 
  useEffect(()=>{
-  FetchOrder();
-//   console.log(orders)
+    FetchPurchase();
+//   console.log(purchases)
   },[]);
 
 
@@ -33,10 +33,10 @@ const FetchOrder=()=>{
 
     confirm("are you sure");
     axios
-      .get("http://localhost/laraval/laravel_project/public/api/order/delete/" + id)
+      .get("http://localhost/laraval/laravel_project/public/api/purchase/delete/" + id)
       .then((res) => {
         console.log(res);
-        FetchOrder();
+        FetchPurchase();
       })
       .catch((err) => {
         console.log(err);
@@ -52,34 +52,33 @@ const FetchOrder=()=>{
 
 
 <div className="container mt-5 p-5">
-<NavLink to="/order" className={"btn btn-primary"}>Add</NavLink>
+<NavLink to="/purchase" className={"btn btn-primary"}>Add</NavLink>
     <table className="table">
     <thead>
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">customer </th>
+      <th scope="col">Supplier Name</th>
       {/* <th scope="col">shipping_address</th> */}
-      <th scope="col">Total_order</th>
-      <th scope="col">paid_amount</th>
-      <th scope="col">discount</th>
-      <th scope="col">order_date</th>
-      <th scope="col">delivery_date</th>
+      <th scope="col">Total_purchase</th>
+      <th scope="col">Paid_amount</th>
+      <th scope="col">Discount</th>
+      <th scope="col">Purchase_date</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
     {
-    orders?.map((data,i)=>{
+    purchases?.map((data,i)=>{
       return(
 <tr key={i}>
       <th scope="row">{data.id}</th>
-      <td>{data.customer_id}</td>
+      <td>{data.supplier_id}</td>
       {/* <td>{data.shipping_address}</td> */}
-      <td>{data.total_order}</td>
+      <td>{data.total_purchase}</td>
       <td>{data.paid_amount}</td>
       <td>{data.discount}</td>
-      <td>{data.order_date}</td>
-      <td>{data.delivery_date}</td>
+      <td>{data.purchase_date}</td>
+      
       
         <td className="btn-group">
                   <NavLink to={`update/${data.id}`} className="btn btn-primary">
@@ -109,7 +108,7 @@ const FetchOrder=()=>{
   )
 }
 
-export default ManageOrder
+export default ManagePurchase
 
 
 

@@ -2,14 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Cart from "../cartComponent/Cart";
 
-const CreateOrder = () => {
+const CreatePurchase = () => {
   //work 1
   const baseUrl = "http://localhost/class_practice/project";
 
   //  const cart= new Cart("purchase")
-  const cart = Cart('order');
-  const [customers, setCustomers] = useState([])
-  const [selectedCustomer, setselectedCustomer] = useState(null)
+  const cart = Cart('purchase');
+  const [suppliers, setSuppliers] = useState([])
+  const [selectedSupplier, setselectedSupplier] = useState(null)
   const [warehouse, setWareHouse] = useState([])
   const [selectedwarehouse, setSelectedWareHouse] = useState(null)
   const [summaryCount, setSummaryCount] = useState({
@@ -19,11 +19,11 @@ const CreateOrder = () => {
        total:0
   })
 
-  const [orderProcess, setOrderProcess] = useState({
-    customer_id:0,
+  const [purchaseProcess, setPurchaseProcess] = useState({
+      supplier_id:0,
       warehouse_id:0,
       products:[],
-      total_order:0,
+      total_purchase:0,
       discount:0,
       vat:0
   })
@@ -133,9 +133,9 @@ useEffect(() => {
 
   const [products, setProducts] = useState([])
 
-  const handleSelectedCustomer = (e) => {
+  const handleSelectedSupplier = (e) => {
     const { value } = e.target
-    setselectedCustomer(JSON.parse(value))
+    setselectedSupplier(JSON.parse(value))
   }
   const handleSelectedwarehouse = (e) => {
     const { value } = e.target
@@ -144,11 +144,11 @@ useEffect(() => {
 
  // console.log(selectedSupplier);
 
-  const fetchCustomers = () => {
-    axios.get("http://localhost/laraval/laravel_project/public/api/customers")
+  const fetchSuppliers = () => {
+    axios.get("http://localhost/laraval/laravel_project/public/api/suppliers")
       .then(res => {
         // console.log(res);
-        setCustomers(res.data.customers)
+        setSuppliers(res.data.suppliers)
       })
   }
   const fetchWareHouse = () => {
@@ -167,7 +167,7 @@ useEffect(() => {
   }
 
   useEffect(() => {
-    fetchCustomers()
+    fetchSuppliers()
     fetchWareHouse()
     fetchProducts()
     setItems(cart.getCart())
@@ -177,20 +177,20 @@ useEffect(() => {
   const handleProcess=()=>{
     //  alert()
      const data= {
-      customer_id: selectedCustomer.id ,
+      supplier_id: selectedSupplier.id ,
       warehouse_id:selectedwarehouse.id ,
       products:items,
-      total_order:summaryCount.total,
+      total_purchase:summaryCount.total,
       discount:summaryCount.discount,
       vat:summaryCount.tax
      }
 
 
-    // setOrderProcess({
-    //   customer_id: selectedCustomer.id  ,
+    // setPurchaseProcess({
+    //   supplier_id: selectedSupplier.id ,
     //   warehouse_id:selectedwarehouse.id ,
     //   products:items,
-    //   total_order:summaryCount.total,
+    //   purchase_total:summaryCount.total,
     //   discount:summaryCount.discount,
     //   vat:summaryCount.tax
 
@@ -199,13 +199,13 @@ useEffect(() => {
     console.log(data);
     
 
-    axios.post("http://localhost/laraval/laravel_project/public/api/saveReactorder",data)
+    axios.post("http://localhost/laraval/laravel_project/public/api/saveReactpurchase",data)
     .then(res=>{
       console.log(res.data);
       cart.clearCart()
       setItems(cart.getCart())
       setSelectedWareHouse(null)
-      setselectedCustomer(null)
+      setselectedSupplier(null)
     })
     .catch(err=>{
         console.log(err);
@@ -231,7 +231,7 @@ useEffect(() => {
 
 
             <div className="col-md-4">
-              <h5>Customer</h5>
+              <h5>Supplier</h5>
               {/* <select onChange={handleSelectedSupplier} className="form-select mb-2" name="supplier">
                 <option>Select Supplier</option>
 
@@ -242,20 +242,20 @@ useEffect(() => {
                 ))}
               </select> */}
 
-<select onChange={(e) => setselectedCustomer(JSON.parse(e.target.value))} className="form-select mb-2" name="customer">
-    <option value="">Select Customer</option>
-    {customers?.map((customer) => (
-        <option key={customer.id} value={JSON.stringify(customer)}>
-            {customer.name}
+<select onChange={(e) => setselectedSupplier(JSON.parse(e.target.value))} className="form-select mb-2" name="supplier">
+    <option value="">Select Supplier</option>
+    {suppliers?.map((supplier) => (
+        <option key={supplier.id} value={JSON.stringify(supplier)}>
+            {supplier.name}
         </option>
     ))}
 </select>
 
 
 
-              <p className="mb-1">Phone: {selectedCustomer && selectedCustomer.phone} <span id="phone"></span></p>
-              <p>Email:  {selectedCustomer && selectedCustomer.email} <span id="email"></span></p>
-              <p>Address:  {selectedCustomer && selectedCustomer.address} <span id="address"></span></p>
+              <p className="mb-1">Phone: {selectedSupplier && selectedSupplier.phone} <span id="phone"></span></p>
+              <p>Email:  {selectedSupplier && selectedSupplier.email} <span id="email"></span></p>
+              <p>Address:  {selectedSupplier && selectedSupplier.address} <span id="address"></span></p>
             </div>
             <div className="col-md-4">
               <h5>Warehouse</h5>
@@ -300,7 +300,7 @@ useEffect(() => {
                     {products?.map((data, i) => (
                       <>
                         <option value={JSON.stringify(data)} key={data.id}>{data.name}</option>
-                        
+                      
                       </>
                     ))}
                   </select>
@@ -309,7 +309,7 @@ useEffect(() => {
                 <td><input value={item.qty} name="qty" onChange={handleSetItem} type="text" className=" p-1  w-100 form-control" placeholder="Qty" /></td>
                 <td><input value={item.price} name="price" type="text" className="w-100 form-control" placeholder="Price" /></td>
                 <td><input value={item.discount} name="discount" onChange={handleSetItem} type="text" className="w-100 form-control" placeholder="Discount" /></td>
-                <td >{item.subtotal}</td>
+                <td>{item.subtotal}</td>
                 <td>
                   <button onClick={handleSetAllItems} className="btn btn-info">Add</button>
                 </td>
@@ -372,5 +372,4 @@ useEffect(() => {
   );
 };
 
-export default CreateOrder;
-
+export default CreatePurchase;

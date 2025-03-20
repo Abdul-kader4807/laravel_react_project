@@ -196,6 +196,11 @@ const Sidebar = () => {
                   <li>
                     <NavLink to="/purchase">Purchase</NavLink>
                   </li>
+
+                  <li>
+                    <NavLink to="/purchase_detail">Purchase list</NavLink>
+                  </li>
+                  
                   <li>
                     <a href="auth-register.html">Purchase_details</a>
                   </li>
@@ -279,8 +284,12 @@ const Sidebar = () => {
                       <NavLink to="/order">Order</NavLink>
                     </li>
                     <li>
-                      <NavLink to="/order_details">Order_details</NavLink>
+                      <NavLink to="/order_detail">Order List</NavLink>
                     </li>
+
+                    {/* <li>
+                      <NavLink to="/order_details">Order_details</NavLink>
+                    </li> */}
                     <li>
                       <NavLink to="/customer">Customer</NavLink>
                     </li>
