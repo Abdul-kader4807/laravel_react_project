@@ -72,7 +72,7 @@ const FetchPurchase=()=>{
       return(
 <tr key={i}>
       <th scope="row">{data.id}</th>
-      <td>{data.supplier_id}</td>
+      <td>{data.supplier ? data.supplier.name:"N/A"}</td>
       {/* <td>{data.shipping_address}</td> */}
       <td>{data.total_purchase}</td>
       <td>{data.paid_amount}</td>

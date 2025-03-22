@@ -5,16 +5,16 @@ import axios from "axios";
 import { NavLink } from "react-router-dom";
 
 
-const ManageOrder = () => {
+const ManageStock = () => {
 
-const [orders,setOrder]=useState([]);
+const [stocks,setStock]=useState([]);
 
-const FetchOrder=()=>{
-  axios.get("http://localhost/laraval/laravel_project/public/api/order")
+const FetchStock=()=>{
+  axios.get("http://localhost/laraval/laravel_project/public/api/stocks")
 
    .then((res)=>{
   console.log(res.data);
-  setOrder(res.data.orders);
+  setStock(res.data.stocks);
   })
    .catch((error)=>{
   console.log(error);
@@ -23,7 +23,7 @@ const FetchOrder=()=>{
   }
 
  useEffect(()=>{
-  FetchOrder();
+  FetchStock();
 //   console.log(orders)
   },[]);
 
@@ -36,7 +36,7 @@ const FetchOrder=()=>{
       .get("http://localhost/laraval/laravel_project/public/api/order/delete/" + id)
       .then((res) => {
         console.log(res);
-        FetchOrder();
+        FetchStock();
       })
       .catch((err) => {
         console.log(err);
@@ -52,39 +52,35 @@ const FetchOrder=()=>{
 
 
 <div className="container mt-5 p-5">
-<NavLink to="/order" className={"btn btn-primary"}>Add</NavLink>
     <table className="table">
     <thead>
     <tr>
       <th scope="col">Id</th>
-      <th scope="col">customer </th>
-      {/* <th scope="col">shipping_address</th> */}
-      <th scope="col">Total_order</th>
-      <th scope="col">paid_amount</th>
-      <th scope="col">discount</th>
-      <th scope="col">order_date</th>
-      <th scope="col">delivery_date</th>
+      <th scope="col">product Name </th>
+      <th scope="col">warehouse Name </th>
+      <th scope="col">price</th>
+      <th scope="col">qty</th>
+      <th scope="col">remark</th>
       <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
     {
-    orders?.map((data,i)=>{
+    stocks?.map((data,i)=>{
       return(
 <tr key={i}>
       <th scope="row">{data.id}</th>
-      <td>{data.customer ? data.customer.name:"N/A"  }</td>
-      {/* <td>{data.shipping_address}</td> */}
-      <td>{data.total_order}</td>
-      <td>{data.paid_amount}</td>
-      <td>{data.discount}</td>
-      <td>{data.order_date}</td>
-      <td>{data.delivery_date}</td>
+      {/* <td>{data.product_id}</td>
+      <td>{data.warehouse_id}</td> */}
+       <td>{data.product ? data.product.name : "N/A"}</td>
+       <td>{data.warehouse ? data.warehouse.name : "N/A"}</td>
+      <td>{data.price}</td>
+      <td>{data.qty}</td>
+      <td>{data.remark}</td>
+      
       
         <td className="btn-group">
-                  {/* <NavLink to={`update/${data.id}`} className="btn btn-primary">
-                    Edit
-                  </NavLink> */}
+                  
                   <NavLink to={`show/${data.id}`} className="btn btn-success">
                     View
                   </NavLink>
@@ -109,7 +105,7 @@ const FetchOrder=()=>{
   )
 }
 
-export default ManageOrder
+export default ManageStock
 
 
 

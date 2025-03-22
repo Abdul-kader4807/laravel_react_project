@@ -26,6 +26,8 @@ import ManageOrder from "./sales/ManageOrder";
 import CreateOrder from "./sales/CreateOrder";
 import CreatePurchase from "./purchase/CreatePurchase";
 import ManagePurchase from "./purchase/ManagePurchase";
+import ManageStock from "./page/stock/ManageStock";
+import ShowOrder from "./sales/ShowOrder";
 
 
 
@@ -52,11 +54,12 @@ const App = () => {
             <Route path="/category" element={<Category />} />
             <Route path="/uom" element={<Uom />} />
             <Route path="/order" element={<CreateOrder/>} />
+            <Route path="order_detail/show/:id" element={<ShowOrder/>} />
             <Route path="/order_detail" element={<ManageOrder/>}/>
            <Route path="/customercreate" element={<CreateCus/>} />
             <Route path="/order_details" element={<Order_details />} />
             <Route path="/status" element={<Status />} />
-            <Route path="/stock" element={<Stock />} />
+            <Route path="/stock" element={<ManageStock />} />
             <Route path="/stock_report" element={<Stock_report />} />
             <Route path="/customer" element ={<ManageCus/>}/>
             
