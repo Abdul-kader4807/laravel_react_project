@@ -58,10 +58,10 @@ const FetchStock=()=>{
       <th scope="col">Id</th>
       <th scope="col">product Name </th>
       <th scope="col">warehouse Name </th>
-      <th scope="col">price</th>
+      {/* <th scope="col">price</th> */}
       <th scope="col">qty</th>
       <th scope="col">remark</th>
-      <th scope="col">Action</th>
+      {/* <th scope="col">Action</th> */}
     </tr>
   </thead>
   <tbody>
@@ -74,12 +74,12 @@ const FetchStock=()=>{
       <td>{data.warehouse_id}</td> */}
        <td>{data.product ? data.product.name : "N/A"}</td>
        <td>{data.warehouse ? data.warehouse.name : "N/A"}</td>
-      <td>{data.price}</td>
+      {/* <td>{data.price}</td> */}
       <td>{data.qty}</td>
       <td>{data.remark}</td>
       
       
-        <td className="btn-group">
+        {/* <td className="btn-group">
                   
                   <NavLink to={`show/${data.id}`} className="btn btn-success">
                     View
@@ -90,7 +90,7 @@ const FetchStock=()=>{
                   >
                     Delete
                   </NavLink>
-                </td>
+                </td> */}
         </tr>
       )})}
 

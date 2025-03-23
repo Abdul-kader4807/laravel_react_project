@@ -28,6 +28,7 @@ import CreatePurchase from "./purchase/CreatePurchase";
 import ManagePurchase from "./purchase/ManagePurchase";
 import ManageStock from "./page/stock/ManageStock";
 import ShowOrder from "./sales/ShowOrder";
+import ShowPurchase from "./purchase/ShowPurchase";
 
 // import ShowOrder from "./sales/ShowOrder";
 
@@ -51,6 +52,7 @@ const App = () => {
             <Route path="/invoice" element={<Invoice />} />
             <Route path="/purchase" element={<CreatePurchase />} />
             <Route path="/purchase_detail" element={<ManagePurchase />} />
+            <Route path="/purchase_detail/show/:id" element={<ShowPurchase />} />
 
             <Route path="/product" element={<Product />} />
             <Route path="/category" element={<Category />} />
@@ -60,6 +62,7 @@ const App = () => {
             <Route path="/order_detail" element={<ManageOrder/>}/>
            <Route path="/customercreate" element={<CreateCus/>} />
             <Route path="/order_details" element={<Order_details />} />
+
             <Route path="/status" element={<Status />} />
             <Route path="/stock" element={<ManageStock />} />
             <Route path="/stock_report" element={<Stock_report />} />
