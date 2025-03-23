@@ -88,12 +88,12 @@ const FetchOrder=()=>{
                   <NavLink to={`show/${data.id}`} className="btn btn-success">
                     View
                   </NavLink>
-                  <NavLink
+                  {/* <NavLink
                     onClick={() => handelDelete(data.id)}
                     className="btn btn-danger"
                   >
                     Delete
-                  </NavLink>
+                  </NavLink> */}
                 </td>
         </tr>
       )})}

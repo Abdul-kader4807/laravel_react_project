@@ -181,87 +181,9 @@ const Sidebar = () => {
             <i className="uim uim-airplay" /><span className="badge rounded-pill bg-success float-end">3</span>
             <span>Invoice</span>
           </NavLink></li> */}
-              <li>
-                <a
-                  href="javascript: void(0);"
-                  className="has-arrow waves-effect"
-                >
-                  <i className=" ri-shopping-basket-fill" />
-                  <span>Purchase management</span>
-                </a>
-                <ul className="sub-menu" aria-expanded="false">
-                  <li>
-                    <NavLink to="/invoice">Invoice</NavLink>
-                  </li>
-                  <li>
-                    <NavLink to="/purchase">Purchase</NavLink>
-                  </li>
+             
 
-                  <li>
-                    <NavLink to="/purchase_detail">Purchase list</NavLink>
-                  </li>
-                  
-                  <li>
-                    <a href="auth-register.html">Purchase_details</a>
-                  </li>
-                  <li>
-                    <a href="auth-recoverpw.html">Purchase Report</a>
-                  </li>
-                  <li>
-                    <a href="auth-lock-screen.html">Lock Screen</a>
-                  </li>
-                </ul>
-              </li>
-
-              <li>
-                <a
-                  href="javascript: void(0);"
-                  className="has-arrow waves-effect"
-                >
-                  <i className="ri-briefcase-4-fill" />
-                  <span>Inventory Management</span>
-                </a>
-                <ul className="sub-menu" aria-expanded="true">
-                  <li>
-                    {/* <a href="javascript: void(0);" className="has-arrow">Email</a> */}
-                    <ul className="sub-menu" aria-expanded="false">
-                      <li>
-                        <NavLink to="/product">Product</NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/category">Category</NavLink>
-                      </li>
-                      <li>
-                        <NavLink to="/uom">Uom</NavLink>
-                      </li>
-                      <li>
-                        <a href="calendar.html">Supplier</a>
-                      </li>
-                      <li>
-                        <a href="apps-chat.html">Warehouse</a>
-                      </li>
-                      <li>
-                        <a href="apps-file-manager.html">Report</a>
-                      </li>
-                    </ul>
-                  </li>
-
-                  {/* <li>
-              <a href="javascript: void(0);" className="has-arrow">Invoice</a>
-              <ul className="sub-menu" aria-expanded="false">
-                <li><a href="invoices.html">Invoices</a></li>
-                <li><a href="invoice-detail.html">Invoice Detail</a></li>
-              </ul>
-            </li> */}
-                  {/* <li>
-              <a href="javascript: void(0);" className="has-arrow">Users</a>
-              <ul className="sub-menu" aria-expanded="false">
-                <li><a href="users-list.html">Users List</a></li>
-                <li><a href="users-detail.html">Users Detail</a></li>
-              </ul>
-            </li> */}
-                </ul>
-              </li>
+         
 
               <li>
                 <a
@@ -306,7 +228,40 @@ const Sidebar = () => {
                 </ul>
               </li>
 
+              <li>
+                <a
+                  href="javascript: void(0);"
+                  className="has-arrow waves-effect"
+                >
+                  <i className=" ri-shopping-basket-fill" />
+                  <span>Purchase management</span>
+                </a>
+                <ul className="sub-menu" aria-expanded="false">
+                 
+                  <li>
+                    <NavLink to="/purchase">Purchase</NavLink>
+                  </li>
 
+                  <li>
+                    <NavLink to="/purchase_detail">Purchase list</NavLink>
+                  </li>
+                  
+
+                  <li>
+                    <NavLink to="/invoice">Invoice</NavLink>
+                  </li>
+
+                  <li>
+                    <a href="auth-register.html">Purchase_details</a>
+                  </li>
+                  <li>
+                    <a href="auth-recoverpw.html">Purchase Report</a>
+                  </li>
+                  <li>
+                    <a href="auth-lock-screen.html">Lock Screen</a>
+                  </li>
+                </ul>
+              </li>
 
 
               <li>
@@ -364,7 +319,55 @@ const Sidebar = () => {
                 </ul>
               </li>
 
+     <li>
+                <a
+                  href="javascript: void(0);"
+                  className="has-arrow waves-effect"
+                >
+                  <i className="ri-briefcase-4-fill" />
+                  <span>Inventory Management</span>
+                </a>
+                <ul className="sub-menu" aria-expanded="true">
+                  <li>
+                    {/* <a href="javascript: void(0);" className="has-arrow">Email</a> */}
+                    <ul className="sub-menu" aria-expanded="false">
+                      <li>
+                        <NavLink to="/product">Product</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/category">Category</NavLink>
+                      </li>
+                      <li>
+                        <NavLink to="/uom">Uom</NavLink>
+                      </li>
+                      <li>
+                        <a href="calendar.html">Supplier</a>
+                      </li>
+                      <li>
+                        <a href="apps-chat.html">Warehouse</a>
+                      </li>
+                      <li>
+                        <a href="apps-file-manager.html">Report</a>
+                      </li>
+                    </ul>
+                  </li>
 
+                  {/* <li>
+              <a href="javascript: void(0);" className="has-arrow">Invoice</a>
+              <ul className="sub-menu" aria-expanded="false">
+                <li><a href="invoices.html">Invoices</a></li>
+                <li><a href="invoice-detail.html">Invoice Detail</a></li>
+              </ul>
+            </li> */}
+                  {/* <li>
+              <a href="javascript: void(0);" className="has-arrow">Users</a>
+              <ul className="sub-menu" aria-expanded="false">
+                <li><a href="users-list.html">Users List</a></li>
+                <li><a href="users-detail.html">Users Detail</a></li>
+              </ul>
+            </li> */}
+                </ul>
+              </li>
 
 
 

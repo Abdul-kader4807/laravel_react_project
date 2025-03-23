@@ -1,199 +1,273 @@
+// import axios from "axios";
+// import React, { useState, useEffect } from "react";
+// import { useParams } from "react-router-dom";
+
+// const ShowOrder = () => {
+//   const [order, setOrder] = useState(null);
+//   const [orderDetails, setOrderDetails] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState(null);
+
+//   const { id } = useParams(); 
+//   console.log(id);
+
+//   // Fetch data from API
+//   useEffect(() => {
+//     axios.get(`http://localhost/laraval/laravel_project/public/api/invoicebyId/${id}`)
+//       .then((response) => {
+//         console.log(response.data); // Debugging API response
+//         setOrder(response.data.order[0]);
+//         setOrderDetails(response.data.order[0]?.order_details || []); // Ensure correct access
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         console.error(err); // Debugging
+//         setError(err.message);
+//         setLoading(false);
+//       });
+//   }, [id]); // Added `id` to dependency array
+
+//   // Function to calculate totals
+//   const calculateTotal = () => {
+//     if (!orderDetails || orderDetails.length === 0) return { total: 0, totalDiscount: 0, tax: 0, grandTotal: 0 };
+
+//     let total = orderDetails.reduce(
+//       (acc, item) => acc + (item.price * item.qty - item.discount),
+//       0
+//     );
+//     let totalDiscount = orderDetails.reduce((acc, item) => acc + item.discount, 0);
+//     let tax = total * 0.05;
+//     let grandTotal = total + tax - totalDiscount;
+
+//     return { total, totalDiscount, tax, grandTotal };
+//   };
+
+//   const { total, totalDiscount, tax, grandTotal } = calculateTotal();
+
+//   // Print Invoice
+//   const printInvoice = () => {
+//     const printButton = document.getElementById("printButton");
+//     if (printButton) {
+//       printButton.style.display = "none";
+//       window.print();
+//       setTimeout(() => {
+//         printButton.style.display = "block";
+//       }, 1000);
+//     }
+//   };
+
+//   // Show loading or error
+//   if (loading) return <p>Loading...</p>;
+//   if (error) return <p className="text-danger">Error: {error}</p>;
+
+//   return (
+//     <div className="container mt-5">
+//       <div className="card shadow-sm border-0">
+//         <div className="card-body p-4">
+//           <div className="invoice-wrap" id="invoice">
+//             <div className="row">
+//               <div className="col-md-6">
+//                 <h6 className="fw-bold text-primary">Order Invoice From:</h6>
+//                 <ul className="list-unstyled">
+//                   <li>Invoice: NO-{order?.id}</li>
+//                   <li>Phone: 01793 956 777</li>
+//                   <li>Email: mdaslamcric@gmail.com</li>
+//                 </ul>
+//               </div>
+//               <div className="col-md-6 text-end">
+//                 <h6 className="fw-bold text-primary">Invoice To:</h6>
+//                 <ul className="list-unstyled">
+//                   <li>Customer Name: {order?.customers?.name || "N/A"}</li>
+//                   <li>Address: {order?.customers?.address || "N/A"}</li>
+//                   <li>Email: {order?.customers?.email || "N/A"}</li>
+//                 </ul>
+//               </div>
+//             </div>
+
+//             <div className="table-responsive mt-3">
+//               <table className="table table-bordered">
+//                 <thead className="table-light text-white bg-primary">
+//                   <tr>
+//                     <th>SL</th>
+//                     <th>Product</th>
+//                     <th>Qty</th>
+//                     <th>Price</th>
+//                     <th>Discount</th>
+//                     <th>Subtotal</th>
+//                   </tr>
+//                 </thead>
+//                 <tbody>
+//                   {orderDetails.map((item, index) => {
+//                     const subtotal = item.price * item.qty - item.discount;
+//                     return (
+//                       <tr key={index}>
+//                         <td>{index + 1}</td>
+//                         <td>{item.product_id || "N/A"}</td>
+//                         <td>{item.qty}</td>
+//                         <td>{item.price}</td>
+//                         <td>{item.discount}</td>
+//                         <td>{subtotal.toFixed(2)}</td>
+//                       </tr>
+                      
+//                     );
+//                   })}
+//                 </tbody>
+//                 <tfoot>
+//                     <tr>
+//                       <td colSpan="5" className="text-end">Total</td>
+//                       <td>{total.toFixed(2)}</td>
+//                     </tr>
+//                     <tr>
+//                       <td colSpan="5" className="text-end">Tax (5%)</td>
+//                       <td>{tax.toFixed(2)}</td>
+//                     </tr>
+//                     <tr>
+//                       <td colSpan="5" className="text-end">Total Discount</td>
+//                       <td>{totalDiscount.toFixed(2)}</td>
+//                     </tr>
+//                     <tr>
+//                       <td colSpan="5" className="text-end fw-bold">Grand Total</td>
+//                       <td className="fw-bold">{grandTotal.toFixed(2)}</td>
+//                     </tr>
+//                   </tfoot>
+//               </table>
+//             </div>
+
+//             <button id="printButton" className="btn btn-success me-2" onClick={printInvoice}>
+//               Print
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default ShowOrder;
+
+
+
+
+
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Cart from "../cartComponent/Cart";
 import { useParams } from "react-router-dom";
 
 const ShowOrder = () => {
+  const [order, setOrder] = useState(null);
+  const [orderDetails, setOrderDetails] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const { id } = useParams();
 
 
-  // State variables
-  const [customers, setCustomers] = useState([]);
 
-  const [item, setItem] = useState([]);
-  const [selectedCustomer, setSelectedCustomer] = useState(null);
-
-  const [summaryCount, setSummaryCount] = useState({
-    discount: 0,
-    tax: 0,
-    subtotal: 0,
-    total: 0,
-  });
-const {id}=useParams()
-// console.log(id)
-
-
-  // Fetch data from API on component mount
   useEffect(() => {
-    // Fetch customers data
     axios.get(`http://localhost/laraval/laravel_project/public/api/invoicebyId/${id}`)
-      .then(response => {
-       console.log(response)
-       
+      .then((response) => {
+        console.log("API Response:", response.data); 
+        setOrder(response.data.order[0]);
+        setOrderDetails(response.data.order[0]?.order_details || []);
+        setLoading(false);
       })
-      .catch(error => {
-        console.error("Error fetching customers data", error);
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+        setError(err.message);
+        setLoading(false);
       });
+}, [id]);
 
 
 
+
+
+  const calculateTotal = () => {
+    if (!orderDetails.length) return { total: 0, totalDiscount: 0, tax: 0, grandTotal: 0 };
     
-    // Fetch items data (example: products)
-    axios.get("https://api.example.com/items")
-      .then(response => {
-        setItem(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching items data", error);
-      });
-  }, []);
-
-  // Calculate Summary
-  const calculateSummary = () => {
-    const subtotal = item.reduce((sum, item) => sum + parseFloat(item.subtotal), 0);
-    const discount = item.reduce((sum, item) => sum + parseFloat(item.total_discount), 0);
-    const tax = subtotal * 0.15;
-    const total = subtotal + tax;
-
-    setSummaryCount({
-      discount: discount,
-      tax: tax,
-      subtotal: subtotal,
-      total: total,
-    });
+    let total = orderDetails.reduce((acc, item) => acc + (item.price * item.qty - item.discount), 0);
+    let totalDiscount = orderDetails.reduce((acc, item) => acc + item.discount, 0);
+    let tax = total * 0.05;
+    let grandTotal = total + tax - totalDiscount;
+    
+    return { total, totalDiscount, tax, grandTotal };
   };
 
-  useEffect(() => {
-    calculateSummary();
-  }, [item]);
+  const { total, totalDiscount, tax, grandTotal } = calculateTotal();
 
-  // Handle Print Invoice
   const printInvoice = () => {
-    const invoiceContent = document.getElementById("invoiceContent").innerHTML;
-    const printWindow = window.open("", "_blank", "width=800, height=600");
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>Invoice</title>
-          <style>
-            body { font-family: Arial, sans-serif; }
-            .invoice-container { margin: 20px; }
-            .invoice-header { text-align: center; margin-bottom: 20px; }
-            .invoice-header h1 { margin: 0; }
-            .invoice-details { margin-bottom: 20px; }
-            table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-            th, td { padding: 8px; text-align: left; border: 1px solid #ddd; }
-            .total-summary td { font-weight: bold; }
-            .footer { text-align: center; margin-top: 20px; }
-          </style>
-        </head>
-        <body>
-          <div class="invoice-container">
-            <div id="invoiceContent">${invoiceContent}</div>
-          </div>
-          <script>
-            window.onload = function () {
-              window.print();
-              window.onafterprint = function () {
-                window.close();
-              };
-            };
-          </script>
-        </body>
-      </html>
-    `);
-    printWindow.document.close();
+    window.print();
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p className="text-danger">Error: {error}</p>;
 
   return (
     <div className="container my-5">
       <div className="card shadow">
         <div className="card-header bg-success text-white text-center">
-          <h1 className="mb-0">Invoice</h1>
+          <h1>Invoice</h1>
         </div>
         <div className="card-body">
-          {/* Invoice Content */}
           <div id="invoiceContent">
             <div className="row mb-4">
-              {/* Customer and Warehouse Information */}
-              <div className="col-md-4">
-                <h5>Customer</h5>
-                <select
-                  onChange={(e) => setSelectedCustomer(JSON.parse(e.target.value))}
-                  className="form-select mb-2"
-                  name="customer"
-                >
-                  <option value="">Select Customer</option>
-                  {customers?.map((customer) => (
-                    <option key={customer.id} value={JSON.stringify(customer)}>
-                      {customer.name}
-                    </option>
-                  ))}
-                </select>
-                <p className="mb-1">Phone: {selectedCustomer?.phone}</p>
-                <p>Email: {selectedCustomer?.email}</p>
-                <p>Address: {selectedCustomer?.address}</p>
+              <div className="col-md-6">
+                <h5>Customer Details</h5>
+                <p>Name: {order?.customer?.name || "N/A"}</p>
+                <p>Email: {order?.customer?.email || "N/A"}</p>
+                <p>Address: {order?.customer?.address || "N/A"}</p>
               </div>
-             
-              <div className="col-md-4 ">
+              <div className="col-md-6 text-end">
                 <h5>Invoice Details</h5>
-                <p>Invoice No: <strong>#12345</strong></p>
-                <p>Date: <strong>{new Date().toLocaleDateString()}</strong></p>
-                <div>
-                  Delivery Date:
-                  <input type="date" className="form-control mt-1" />
-                </div>
+                <p>Invoice No: #{order?.id}</p>
+                <p>Date: {new Date().toLocaleDateString()}</p>
               </div>
             </div>
-
-            {/* Product Table */}
             <table className="table table-bordered">
               <thead>
-              <tr>
-                  <th>Item</th>
-                  <th>Strength</th>
-                  <th>Quantity</th>
-                  <th>Unit Price</th>
+                <tr>
+                  {/* <th>SL</th> */}
+                  <th>Product</th>
+                  <th>Qty</th>
+                  <th>Price</th>
                   <th>Discount</th>
-                  <th>Total</th>
+                  <th>Subtotal</th>
                 </tr>
               </thead>
               <tbody>
-                {item?.map((data) => (
-                  <tr key={data.item_id}>
-                    <td>{data.name}</td>
-                    <td>{data.strength}</td>
-                    <td>{data.qty}</td>
-                    <td>{data.price}</td>
-                    <td>{data.discount}</td>
-                    <td>{data.subtotal}</td>
+                {orderDetails.map((item, index) => (
+                  <tr key={index}>
+                    {/* <td>{index + 1}</td> */}
+                    <td>{item.product?.name || "N/A"}</td>
+                    <td>{item.qty}</td>
+                    <td>{item.price}</td>
+                    <td>{item.discount}</td>
+                    <td>{(item.price * item.qty - item.discount).toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
               <tfoot>
                 <tr>
-                  <td colSpan="4" className="text-end fw-bold">Discount</td>
-                  <td className="fw-bold">{summaryCount.discount}</td>
+                  <td colSpan="5" className="text-end fw-bold">Total</td>
+                  <td>{total.toFixed(2)}</td>
                 </tr>
                 <tr>
-                  <td colSpan="4" className="text-end fw-bold">Tax</td>
-                  <td className="fw-bold">${summaryCount.tax}</td>
+                  <td colSpan="5" className="text-end fw-bold">Tax (5%)</td>
+                  <td>{tax.toFixed(2)}</td>
                 </tr>
                 <tr>
-                  <td colSpan="4" className="text-end fw-bold">Subtotal</td>
-                  <td className="fw-bold">${summaryCount.subtotal}</td>
+                  <td colSpan="5" className="text-end fw-bold">Total Discount</td>
+                  <td>{totalDiscount.toFixed(2)}</td>
                 </tr>
                 <tr>
-                  <td colSpan="4" className="text-end fw-bold">Total</td>
-                  <td className="fw-bold">${summaryCount.total}</td>
+                  <td colSpan="5" className="text-end fw-bold">Grand Total</td>
+                  <td>{grandTotal.toFixed(2)}</td>
                 </tr>
               </tfoot>
             </table>
           </div>
-
-          {/* Footer Actions */}
           <div className="d-flex justify-content-between mt-4">
-            
-            <button onClick={printInvoice} className="btn btn-primary">Print Invoice</button>
+            <button onClick={printInvoice} className="btn btn-primary print-btn">Print Invoice</button>
           </div>
         </div>
       </div>

@@ -29,6 +29,8 @@ import ManagePurchase from "./purchase/ManagePurchase";
 import ManageStock from "./page/stock/ManageStock";
 import ShowOrder from "./sales/ShowOrder";
 
+// import ShowOrder from "./sales/ShowOrder";
+
 
 
 // import Header from '../components/Header'
@@ -62,9 +64,7 @@ const App = () => {
             <Route path="/stock" element={<ManageStock />} />
             <Route path="/stock_report" element={<Stock_report />} />
             <Route path="/customer" element ={<ManageCus/>}/>
-            
-            
-            
+           
           </Route>
         </Routes>
       </BrowserRouter>
